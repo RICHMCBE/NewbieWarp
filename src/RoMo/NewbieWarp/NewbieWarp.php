@@ -23,6 +23,10 @@ class NewbieWarp extends PluginBase{
         if(is_file($path)){
             $warpName = trim(file_get_contents($path));
             $this->warp = WarpFactory::getInstance()->getWarp($warpName);
+
+            if($this->warp === null){
+                $this->getLogger()->error("{$warpName} 워프를 찾을 수 없습니다.");
+            }
         }
 
         $this->getServer()->getPluginManager()->registerEvent(PlayerJoinEvent::class, function(PlayerJoinEvent $event) : void{
